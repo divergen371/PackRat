@@ -19,7 +19,7 @@ type PortScanner struct {
 }
 
 func Ulimit() int64 {
-	out, err := exec.Command("ulimit", "-n").Output()
+	out, err := exec.Command("bash", "-c","ulimit -n").Output()
 
 	if err != nil {
 		panic(err)
