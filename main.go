@@ -66,7 +66,7 @@ func main() {
 		lock: semaphore.NewWeighted(Ulimit()),
 	}
 
-	var fst = flag.Int("f", 0, "farst port number")
+	var fst = flag.Int("f", 0, "first port number")
 	var last = flag.Int("l", 1000, "last port number")
 
 	ps.Start(*fst, *last, 1000*time.Millisecond)
