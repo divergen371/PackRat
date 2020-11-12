@@ -1,7 +1,8 @@
 package main
 
 import (
-	"context"
+    "context"
+    "flag"
 	"fmt"
 	"net"
 	"os/exec"
@@ -57,22 +58,17 @@ func (ps *PortScanner) Start(fst, last int, timeout time.Duration) {
 		}(port)
 	}
 }
-
 func main() {
-	var ipAddr string
-	print("Ip address: ")
-	fmt.Scan(&ipAddr)
+	flag.Parse()
+	ipAddr := flag.Arg(0)
 	ps := &PortScanner{
 		ip:   ipAddr,
 		lock: semaphore.NewWeighted(Ulimit()),
 	}
 
-	var fst, last int
-	print("First port: ")
-	fmt.Scan(&fst)
-	print("Last port: ")
-	fmt.Scan(&last)
+	var fst = flag.Int("f", 0, "farst port number")
+	var last = flag.Int("l", 1000, "last port number")
 
-	ps.Start(fst, last, 1000*time.Millisecond)
-
+	ps.Start(*fst, *last, 1000*time.Millisecond)
 }
+
